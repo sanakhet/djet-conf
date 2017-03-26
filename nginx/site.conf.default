@@ -1,6 +1,11 @@
 server {
   listen 80;
   listen 443 ssl;
+  
+  # The server name CAN be a complicated regular expression if you're doing some fancy stuff.
+  # Remember not to rely on it as a useful variable to read in that scenario.
+  # eg. If you use something like "^(?<custom>.+\.)?(www\.)?site\.com$", this will show up
+  # in your $_SERVER and $_ENV vars in PHP.
   server_name site.com www.site.com;
   
   # Quick and dirty self-signed cert:
