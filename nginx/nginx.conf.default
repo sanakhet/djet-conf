@@ -25,8 +25,8 @@ events {
 # Log errors and warnings to this file
 # This is only used when you don't override it on a server{} level
 # Sample override for specific site with debugging enabled:
-#   error_log /var/logs/nginx/site-error.log debug;
-error_log  /var/logs/nginx/error.log warn;
+#   error_log /var/log/nginx/site-error.log debug;
+error_log  /var/log/nginx/error.log warn;
 
 # The file storing the process ID of the main process
 pid        /var/run/nginx.pid;
