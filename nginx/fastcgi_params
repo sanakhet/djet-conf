@@ -15,6 +15,7 @@ fastcgi_param DOCUMENT_ROOT         "$document_root/";
 fastcgi_param QUERY_STRING          "$query_string";
 fastcgi_param SCRIPT_FILENAME       "$document_root$fastcgi_script_name";
 fastcgi_param SCRIPT_NAME           "$fastcgi_script_name";
+fastcgi_param HOSTNAME              $hostname;
 fastcgi_param REDIRECT_QUERY_STRING "$query_string";
 fastcgi_param REDIRECT_URL          "$request_uri";
 fastcgi_param REQUEST_URI           "$request_uri";
