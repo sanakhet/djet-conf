@@ -1,5 +1,9 @@
 # Stripped down ultra basic screenrc inspired by the internet.
 
+# Quick and dirty install:
+#   cp -f djet.screenrc ~/.screenrc
+
+
 # Turn off that annoying start up message
 startup_message off
 
