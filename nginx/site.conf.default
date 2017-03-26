@@ -1,0 +1,19 @@
+server {
+  listen 80;
+  listen 443 ssl;
+  server_name site.com www.site.com;
+  
+  # Quick and dirty self-signed cert:
+  # sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+  #ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+  #ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+  
+  # Include the default configuration for handling static files.
+  include boilerplate/static-files.conf;
+  
+  # Include a default php-fpm socket configuration.
+  include boilerplate/default-php-fpm-socket.conf;
+  
+  # Includes a default rule to deny access to '.___' files.
+  include boilerplate/deny-hidden-files.conf;
+}
