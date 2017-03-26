@@ -8,6 +8,13 @@ server {
   # in your $_SERVER and $_ENV vars in PHP.
   server_name site.com www.site.com;
   
+  # The root location for the site files.
+  root /path/to/site;
+  
+  # A default index set up.
+  # Lead with "index.html" in case you need to bring down the site quickly in a very basic way.
+  index index.html index.htm index.php;
+  
   # Quick and dirty self-signed cert:
   # sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
   #ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
