@@ -21,7 +21,7 @@ server {
   #ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
   
   # Include the default configuration for handling static files.
-  include boilerplate/static-files.conf;
+  include boilerplate/default-static-files.conf;
   
   # Include a default php-fpm socket configuration.
   include boilerplate/default-php-fpm-socket.conf;
