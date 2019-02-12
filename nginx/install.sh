@@ -4,5 +4,5 @@
 # and then copy recursively to the nginx conf dir.
 
 echo -e "Copying NGINX configuration files to /etc/nginx/conf ..."
-ls | grep -v *.sh | xargs -I{} sudo cp -rf "{}" /etc/nginx/conf
+ls | grep -v *.sh | xargs -I{} sudo cp -rf "{}" /usr/local/nginx/conf
 echo -e "Copy complete, have a nice day."
