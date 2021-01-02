@@ -1,0 +1,74 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+## Changes these to the directories in your computer, notice the double \\
+LOCAL_PROJECT_PATH = "C:\\Path\\To\\Projects"
+REMOTE_PROJECT_PATH = "/home/vagrant/projects"
+DEV_VM_HOSTNAME = "DevelopmentVM"
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://vagrantcloud.com/search.
+  config.vm.box = "bento/ubuntu-18.04"
+
+  # Disable automatic box update checking. If you disable this, then
+  # boxes will only be checked for updates when the user runs
+  # `vagrant box outdated`. This is not recommended.
+  config.vm.box_check_update = true
+
+  # Private network, necessary for NFS
+  config.vm.network "private_network", ip: "10.1.0.10"
+
+  # Share an additional folder to the guest VM. The first argument is
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+  config.vm.synced_folder LOCAL_PROJECT_PATH, REMOTE_PROJECT_PATH, 
+      type: "nfs",
+      mount_options: [
+          # Ensure NFS v3 supported by Windows 10 Pro.
+          "nfsvers=3",
+          "vers=3",
+          # Force an attribute cache time of N seconds, default 60. We only need
+          # 1 second of cache though.
+          # https://linux.die.net/man/5/nfs
+          "actimeo=3",
+          # Number of bytes NFS uses when READING from the host machine. Max 64k,
+          # but using max blocks may adversely affect performance.
+          # NFSv3 might have a max of 8192
+          "rsize=16384",
+          # Number of bytes NFS uses when WRITING from the host machine. Max 64k,
+          # but using max blocks may adversely affect performance.
+          # NFSv3 might have a max of 8192
+          "wsize=16384",
+          # The timeout the mount will wait for if there are errors. This probably
+          # does nothing though, as I believe it requires the ":soft" option to be
+          # enabled as well.
+          "timeo=14",
+          # Allow execution of binaries on the mount.
+          "exec",
+          # Allow read and write permissions.
+          "rw"
+      ]
+
+  config.ssh.insert_key = false
+
+  config.vm.hostname = DEV_VM_HOSTNAME
+
+  config.vm.provider :virtualbox do |vb|
+    vb.name = DEV_VM_HOSTNAME
+    vb.memory = 4096
+    vb.cpus   = 4
+    vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
+    vb.customize ["modifyvm", :id, "--audio", "none"]
+    vb.customize ["modifyvm", :id, "--usb", "off"]
+  end
+end
